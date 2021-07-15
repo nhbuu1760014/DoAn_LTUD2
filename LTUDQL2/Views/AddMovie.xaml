@@ -1,0 +1,58 @@
+﻿<Window x:Class="LTUDQL2.Views.AddMovie"
+        
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LTUDQL2.Views"
+        mc:Ignorable="d"
+        Title="AddMovie" Height="616.88" Width="1012.8">
+    <Grid>
+        <TextBox x:Name="nameMovie"
+            Style="{StaticResource MaterialDesignFilledTextBox}"
+            VerticalAlignment="Top"
+            AcceptsReturn="True"
+            TextWrapping="Wrap"
+            MaxWidth="400"
+            materialDesign:HintAssist.Hint="Tên Phim"
+            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}" Margin="18,260,601.4,0" />
+        <TextBox
+            x:Name="Discription"
+            Style="{StaticResource MaterialDesignFilledTextBox}"
+            VerticalAlignment="Top"
+            AcceptsReturn="True"
+            TextWrapping="Wrap"
+            MaxWidth="400"
+            materialDesign:HintAssist.Hint="Mô Tả"
+            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}" Margin="18,307,601.4,0" />
+        <Image Margin="8,7,598.4,373.2" RenderTransformOrigin="0.5,0.5" x:Name="posterMovie" Stretch="Fill">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.138"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.398"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Button
+        Click="LoadImage_Click"
+  Style="{StaticResource MaterialDesignRaisedLightButton}"
+  ToolTip="Resource name: MaterialDesignRaisedLightButton"
+  Content="Choose Image" Margin="22,221,833.4,334.2" />
+
+        <MediaElement Margin="420,5,7.4,249.2" x:Name="videoMovie"></MediaElement>
+        <Button
+            Click="LoadVideo_Click"
+            Style="{StaticResource MaterialDesignRaisedLightButton}"
+            ToolTip="Resource name: MaterialDesignRaisedLightButton"
+            Content="Choose Video" Margin="848,349,7.4,206.2" />
+        <Button Click="Submit_Click"
+            Style="{StaticResource MaterialDesignRaisedLightButton}"
+            ToolTip="Resource name: MaterialDesignRaisedLightButton"
+            Content="Submit" Margin="380,493,475.4,62.2" />
+    </Grid>
+</Window>

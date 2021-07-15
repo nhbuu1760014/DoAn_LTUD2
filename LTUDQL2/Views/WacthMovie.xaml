@@ -1,0 +1,68 @@
+﻿<Window x:Class="LTUDQL2.Views.WacthMovie"
+        
+          FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LTUDQL2.Views"
+        mc:Ignorable="d"
+        Height="700" Width="1200" WindowStartupLocation="CenterScreen" KeyUp="Window_KeyUp" ResizeMode="NoResize">
+    <Window.Background>
+        <SolidColorBrush Color="Black" Opacity=".8"/>
+    </Window.Background>
+    <StackPanel MouseMove="Grid_MouseMove" MouseLeave="Grid_MouseLeave">
+        <Grid Margin="0,0,-0.4,0">
+            <MediaElement Name="movie" Volume="50" LoadedBehavior="Manual"
+             Margin="0,0,-0.4,1.4"/>
+            <Button Name="btnPlay" FontSize="50" Foreground="Red" Click="btnPlay_Click" Width="60" Height="60"
+              Style="{StaticResource MaterialDesignIconButton}"
+              ToolTip="Play" Margin="455,176,457.6,220.4" >
+                <materialDesign:PackIcon 
+                Kind="Play" Height="52" Width="58" />
+            </Button>
+            <Button Name="btnStop" Width="60" Height="60" Foreground="#fff" Visibility="Hidden" MouseEnter="BtnStop_MouseEnter" MouseLeave="BtnStop_MouseLeave" Click="BtnStop_Click"
+              Style="{StaticResource MaterialDesignIconButton}"
+              ToolTip="Tạm Dừng" Margin="455,176,457.6,220.4">
+                <materialDesign:PackIcon 
+                Kind="Pause" Height="52" Width="58" />
+            </Button>
+            <Button Name="btnReset" Width="60" Height="60" Foreground="#fff" Visibility="Hidden" Click="BtnReset_Click"
+              Style="{StaticResource MaterialDesignIconButton}"
+              ToolTip="Phát Lại" Margin="456,205,457.6,248.8">
+                <materialDesign:PackIcon 
+                Kind="Reload" Height="52" Width="58" />
+            </Button>
+            <Button Name="btnFullscreen" Width="40" Height="40" Foreground="#fff" Click="BtnFullscreen_Click"
+              Style="{StaticResource MaterialDesignIconButton}"
+              ToolTip="Phóng to" Margin="1144,620,10,10">
+                <materialDesign:PackIcon 
+                Kind="Fullscreen" Height="35" Width="35" RenderTransformOrigin="0.981,0.829" />
+            </Button>
+            <Button Name="btnFullscreenExit" Width="40" Height="40" Foreground="#fff" Click="BtnFullscreenExit_Click" Visibility="Hidden"
+              Style="{StaticResource MaterialDesignIconButton}"
+              ToolTip="Thu nhỏ" Margin="1480,630,6,2">
+                <materialDesign:PackIcon 
+                Kind="FullscreenExit" Height="35" Width="35" RenderTransformOrigin="0.981,0.829" />
+            </Button>
+        </Grid>
+        <Slider
+            Visibility="Hidden" Value="{Binding ElementName=movie, Path=Volume}"
+            Name="sliderVol"
+            VerticalAlignment="Center"
+            Margin="100,-70,922.6,0"
+            Padding="0 20 0 0"
+            Orientation="Horizontal"
+            Height="45"
+            MaxWidth="200"
+            Minimum="0"
+            Maximum="100"
+    Style="{StaticResource MaterialDesignDiscreteSlider}"
+    ToolTip="Volumn"/>
+        <TextBlock Name="lblProgressStatus" Foreground="#fff" Margin="10,-55,1098.6,0">00:00:00</TextBlock>
+        <Slider Name="sliProgress" Margin="10,-30, 50, 0" ValueChanged="SliProgress_ValueChanged" Thumb.DragStarted="SliProgress_DragStarted" Thumb.DragCompleted="SliProgress_DragCompleted" Visibility="Hidden"/>
+    </StackPanel>
+
+</Window>

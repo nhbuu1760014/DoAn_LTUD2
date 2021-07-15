@@ -1,0 +1,73 @@
+﻿<Window x:Class="LTUDQL2.Views.HomePage"
+        
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LTUDQL2"
+        mc:Ignorable="d"
+        x:Name="homepageWindow"
+        DataContext="{StaticResource loginVM}"
+        Title="HomePage" Height="800" Width="1500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
+    <StackPanel>
+        <StackPanel.Background>
+            <SolidColorBrush Color="#000000" Opacity=".6" />
+        </StackPanel.Background>
+
+        <StackPanel x:Name="headerClose" >
+            <materialDesign:ColorZone  MouseLeftButtonDown="ColorZone_MouseLeftButtonDown" Background="Transparent">
+                <StackPanel HorizontalAlignment="Right">
+                    <Button Width="30" Height="30" materialDesign:ShadowAssist.ShadowDepth="Depth2" Padding="0" Background="Red" Click="CloseApp_Click">
+                        <materialDesign:PackIcon Kind="WindowClose"/>
+                    </Button>
+                </StackPanel>
+            </materialDesign:ColorZone>
+        </StackPanel>
+        <DockPanel x:Name="headerMain">
+            <Image Source="/LTUDQL2;component/Images/icon_netflix.png" Margin="60 0 0 0"  Height="100" Width="180" DockPanel.Dock="Left"/>
+            <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                <TextBlock x:Name="emailUser" TextAlignment="Center" Width="AUTO" Margin="0 0 20 0" Foreground="#fff" Height="15" Text="{Binding Email}" Visibility="Hidden"></TextBlock>
+                <TextBlock x:Name="nameUser" TextAlignment="Center" Width="AUTO" Margin="0 0 20 0" Foreground="#fff" Height="15" Text="{Binding NameUser}"></TextBlock>
+                <Button x:Name="circularBorder" Click="CircularBorder_Click"
+                    BorderBrush="Transparent"
+                   Width="52" Height="50">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Images/user-bg.png" Stretch="Fill" AlignmentX="Left" AlignmentY="Center" />
+                    </Button.Background>
+                </Button>
+                <Line  
+                    X1="0" Y1="0"  
+                    X2="0" Y2="38" 
+                    Margin="10 0 10 0"
+                    Height="38"
+                    Stroke="Red"  
+                    StrokeThickness="2" />
+                <Button
+                x:Name="btnLogOutPage"
+                    Background="Red"
+                    FontSize="16"
+                    Width="150"
+                    Height="38"
+                    Margin="0 0 30 0"
+                    BorderBrush="Red"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                ToolTip="MaterialDesignRaisedLightButton with Round Corners" Click="BtnLogOutPage_Click">
+                    <TextBlock
+                  Text="Đăng Xuất" />
+                </Button>
+            </StackPanel>
+            <DockPanel></DockPanel>
+        </DockPanel>
+        <Grid Height="667">
+            <Frame x:Name="mainHomepage" NavigationUIVisibility="Hidden" Background="Transparent" />
+        </Grid>
+    </StackPanel>
+</Window>

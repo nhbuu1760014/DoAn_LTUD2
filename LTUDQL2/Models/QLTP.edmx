@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="IDCategory" />
+          </Key>
+          <Property Name="IDCategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLyTrangPhim.dbo.Favorites' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Favorites">
+          <Key>
+            <PropertyRef Name="IDProfile" />
+            <PropertyRef Name="IDMovie" />
+          </Key>
+          <Property Name="IDProfile" Type="int" Nullable="false" />
+          <Property Name="IDMovie" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movies">
+          <Key>
+            <PropertyRef Name="IDMovie" />
+          </Key>
+          <Property Name="IDMovie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MovieName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MoviePath" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PosterPath" Type="image" Nullable="false" />
+          <Property Name="DesccriptionMovie" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IDCategory" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QuanLyTrangPhim.dbo.PlaylistMovie' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PlaylistMovie">
+          <Key>
+            <PropertyRef Name="IDPlaylist" />
+            <PropertyRef Name="IDMovie" />
+          </Key>
+          <Property Name="IDPlaylist" Type="int" Nullable="false" />
+          <Property Name="IDMovie" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Playlists">
+          <Key>
+            <PropertyRef Name="IDPlaylist" />
+          </Key>
+          <Property Name="IDPlaylist" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaylistName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDProfile" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="IDProfile" />
+          </Key>
+          <Property Name="IDProfile" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProfileName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchases">
+          <Key>
+            <PropertyRef Name="IDPurchase" />
+          </Key>
+          <Property Name="IDPurchase" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatePurchase" Type="datetime" Nullable="false" />
+          <Property Name="DateExpire" Type="datetime" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserMovies">
+          <Key>
+            <PropertyRef Name="IDMovie" />
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDMovie" Type="int" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="PurchaseInfo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Category_Movies">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Movies" Type="Self.Movies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="IDCategory" />
+            </Principal>
+            <Dependent Role="Movies">
+              <PropertyRef Name="IDCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Movie_Fav">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="Favorites" Type="Self.Favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="IDMovie" />
+            </Principal>
+            <Dependent Role="Favorites">
+              <PropertyRef Name="IDMovie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Movie_PM">
+          <End Role="Movies" Type="Self.Movies" Multiplicity="1" />
+          <End Role="PlaylistMovie" Type="Self.PlaylistMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movies">
+              <PropertyRef Name="IDMovie" />
+            </Principal>
+            <Dependent Role="PlaylistMovie">
+              <PropertyRef Name="IDMovie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Playlist_PM">
+          <End Role="Playlists" Type="Self.Playlists" Multiplicity="1" />
+          <End Role="PlaylistMovie" Type="Self.PlaylistMovie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Playlists">
+              <PropertyRef Name="IDPlaylist" />
+            </Principal>
+            <Dependent Role="PlaylistMovie">
+              <PropertyRef Name="IDPlaylist" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Profile_Fav">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="1" />
+          <End Role="Favorites" Type="Self.Favorites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="IDProfile" />
+            </Principal>
+            <Dependent Role="Favorites">
+              <PropertyRef Name="IDProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Profile_Playlist">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="1" />
+          <End Role="Playlists" Type="Self.Playlists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="IDProfile" />
+            </Principal>
+            <Dependent Role="Playlists">
+              <PropertyRef Name="IDProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_Profile">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Profiles">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_Purchase">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movies" EntityType="Self.Movies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Playlists" EntityType="Self.Playlists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMovies" EntityType="Self.UserMovies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Favorites" EntityType="Self.Favorites" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Favorites].[IDProfile] AS [IDProfile], 
+    [Favorites].[IDMovie] AS [IDMovie]
+    FROM [dbo].[Favorites] AS [Favorites]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PlaylistMovie" EntityType="Self.PlaylistMovie" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PlaylistMovie].[IDPlaylist] AS [IDPlaylist], 
+    [PlaylistMovie].[IDMovie] AS [IDMovie]
+    FROM [dbo].[PlaylistMovie] AS [PlaylistMovie]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_Category_Movies" Association="Self.fk_Category_Movies">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Movies" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Movie_Fav" Association="Self.fk_Movie_Fav">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="Favorites" EntitySet="Favorites" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Movie_PM" Association="Self.fk_Movie_PM">
+            <End Role="Movies" EntitySet="Movies" />
+            <End Role="PlaylistMovie" EntitySet="PlaylistMovie" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Playlist_PM" Association="Self.fk_Playlist_PM">
+            <End Role="Playlists" EntitySet="Playlists" />
+            <End Role="PlaylistMovie" EntitySet="PlaylistMovie" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Profile_Fav" Association="Self.fk_Profile_Fav">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="Favorites" EntitySet="Favorites" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Profile_Playlist" Association="Self.fk_Profile_Playlist">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="Playlists" EntitySet="Playlists" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_Profile" Association="Self.fk_User_Profile">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_Purchase" Association="Self.fk_User_Purchase">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLyTrangPhimModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="QuanLyTrangPhimEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="QuanLyTrangPhimModel.Category" />
+          <EntitySet Name="Movies" EntityType="QuanLyTrangPhimModel.Movy" />
+          <EntitySet Name="Playlists" EntityType="QuanLyTrangPhimModel.Playlist" />
+          <EntitySet Name="Profiles" EntityType="QuanLyTrangPhimModel.Profile" />
+          <EntitySet Name="Purchases" EntityType="QuanLyTrangPhimModel.Purchase" />
+          <EntitySet Name="UserMovies" EntityType="QuanLyTrangPhimModel.UserMovy" />
+          <EntitySet Name="Users" EntityType="QuanLyTrangPhimModel.User" />
+          <AssociationSet Name="fk_Category_Movies" Association="QuanLyTrangPhimModel.fk_Category_Movies">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Movy" EntitySet="Movies" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Profile_Playlist" Association="QuanLyTrangPhimModel.fk_Profile_Playlist">
+            <End Role="Profile" EntitySet="Profiles" />
+            <End Role="Playlist" EntitySet="Playlists" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_Profile" Association="QuanLyTrangPhimModel.fk_User_Profile">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Profile" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_User_Purchase" Association="QuanLyTrangPhimModel.fk_User_Purchase">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="Favorites" Association="QuanLyTrangPhimModel.Favorites">
+            <End Role="Movy" EntitySet="Movies" />
+            <End Role="Profile" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="PlaylistMovie" Association="QuanLyTrangPhimModel.PlaylistMovie">
+            <End Role="Movy" EntitySet="Movies" />
+            <End Role="Playlist" EntitySet="Playlists" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="IDCategory" />
+          </Key>
+          <Property Name="IDCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Movies" Relationship="QuanLyTrangPhimModel.fk_Category_Movies" FromRole="Category" ToRole="Movy" />
+        </EntityType>
+        <EntityType Name="Movy">
+          <Key>
+            <PropertyRef Name="IDMovie" />
+          </Key>
+          <Property Name="IDMovie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MovieName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoviePath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PosterPath" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="DesccriptionMovie" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IDCategory" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="QuanLyTrangPhimModel.fk_Category_Movies" FromRole="Movy" ToRole="Category" />
+          <NavigationProperty Name="Profiles" Relationship="QuanLyTrangPhimModel.Favorites" FromRole="Movy" ToRole="Profile" />
+          <NavigationProperty Name="Playlists" Relationship="QuanLyTrangPhimModel.PlaylistMovie" FromRole="Movy" ToRole="Playlist" />
+        </EntityType>
+        <EntityType Name="Playlist">
+          <Key>
+            <PropertyRef Name="IDPlaylist" />
+          </Key>
+          <Property Name="IDPlaylist" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaylistName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDProfile" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Profile" Relationship="QuanLyTrangPhimModel.fk_Profile_Playlist" FromRole="Playlist" ToRole="Profile" />
+          <NavigationProperty Name="Movies" Relationship="QuanLyTrangPhimModel.PlaylistMovie" FromRole="Playlist" ToRole="Movy" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="IDProfile" />
+          </Key>
+          <Property Name="IDProfile" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProfileName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Playlists" Relationship="QuanLyTrangPhimModel.fk_Profile_Playlist" FromRole="Profile" ToRole="Playlist" />
+          <NavigationProperty Name="User" Relationship="QuanLyTrangPhimModel.fk_User_Profile" FromRole="Profile" ToRole="User" />
+          <NavigationProperty Name="Movies" Relationship="QuanLyTrangPhimModel.Favorites" FromRole="Profile" ToRole="Movy" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="IDPurchase" />
+          </Key>
+          <Property Name="IDPurchase" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatePurchase" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateExpire" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="QuanLyTrangPhimModel.fk_User_Purchase" FromRole="Purchase" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserMovy">
+          <Key>
+            <PropertyRef Name="IDMovie" />
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDMovie" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IDUser" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseInfo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profiles" Relationship="QuanLyTrangPhimModel.fk_User_Profile" FromRole="User" ToRole="Profile" />
+          <NavigationProperty Name="Purchases" Relationship="QuanLyTrangPhimModel.fk_User_Purchase" FromRole="User" ToRole="Purchase" />
+        </EntityType>
+        <Association Name="fk_Category_Movies">
+          <End Type="QuanLyTrangPhimModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="QuanLyTrangPhimModel.Movy" Role="Movy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="IDCategory" />
+            </Principal>
+            <Dependent Role="Movy">
+              <PropertyRef Name="IDCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Profile_Playlist">
+          <End Type="QuanLyTrangPhimModel.Profile" Role="Profile" Multiplicity="1" />
+          <End Type="QuanLyTrangPhimModel.Playlist" Role="Playlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="IDProfile" />
+            </Principal>
+            <Dependent Role="Playlist">
+              <PropertyRef Name="IDProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_Profile">
+          <End Type="QuanLyTrangPhimModel.User" Role="User" Multiplicity="1" />
+          <End Type="QuanLyTrangPhimModel.Profile" Role="Profile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_User_Purchase">
+          <End Type="QuanLyTrangPhimModel.User" Role="User" Multiplicity="1" />
+          <End Type="QuanLyTrangPhimModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Favorites">
+          <End Type="QuanLyTrangPhimModel.Movy" Role="Movy" Multiplicity="*" />
+          <End Type="QuanLyTrangPhimModel.Profile" Role="Profile" Multiplicity="*" />
+        </Association>
+        <Association Name="PlaylistMovie">
+          <End Type="QuanLyTrangPhimModel.Movy" Role="Movy" Multiplicity="*" />
+          <End Type="QuanLyTrangPhimModel.Playlist" Role="Playlist" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StoreContainer" CdmEntityContainer="QuanLyTrangPhimEntities1" >
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="QuanLyTrangPhimModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="QuanLyTrangPhimModel.Movy">
+              <MappingFragment StoreEntitySet="Movies">
+                <ScalarProperty Name="IDCategory" ColumnName="IDCategory" />
+                <ScalarProperty Name="DesccriptionMovie" ColumnName="DesccriptionMovie" />
+                <ScalarProperty Name="PosterPath" ColumnName="PosterPath" />
+                <ScalarProperty Name="MoviePath" ColumnName="MoviePath" />
+                <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+                <ScalarProperty Name="IDMovie" ColumnName="IDMovie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Playlists">
+            <EntityTypeMapping TypeName="QuanLyTrangPhimModel.Playlist">
+              <MappingFragment StoreEntitySet="Playlists">
+                <ScalarProperty Name="IDProfile" ColumnName="IDProfile" />
+                <ScalarProperty Name="PlaylistName" ColumnName="PlaylistName" />
+                <ScalarProperty Name="IDPlaylist" ColumnName="IDPlaylist" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="QuanLyTrangPhimModel.Profile">
+              <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+                <ScalarProperty Name="IDProfile" ColumnName="IDProfile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="QuanLyTrangPhimModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchases">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
+                <ScalarProperty Name="DatePurchase" ColumnName="DatePurchase" />
+                <ScalarProperty Name="IDPurchase" ColumnName="IDPurchase" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMovies">
+            <EntityTypeMapping TypeName="QuanLyTrangPhimModel.UserMovy">
+              <MappingFragment StoreEntitySet="UserMovies">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IDMovie" ColumnName="IDMovie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="QuanLyTrangPhimModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="PurchaseInfo" ColumnName="PurchaseInfo" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Favorites" TypeName="QuanLyTrangPhimModel.Favorites" StoreEntitySet="Favorites">
+            <EndProperty Name="Profile">
+              <ScalarProperty Name="IDProfile" ColumnName="IDProfile" />
+            </EndProperty>
+            <EndProperty Name="Movy">
+              <ScalarProperty Name="IDMovie" ColumnName="IDMovie" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="PlaylistMovie" TypeName="QuanLyTrangPhimModel.PlaylistMovie" StoreEntitySet="PlaylistMovie">
+            <EndProperty Name="Playlist">
+              <ScalarProperty Name="IDPlaylist" ColumnName="IDPlaylist" />
+            </EndProperty>
+            <EndProperty Name="Movy">
+              <ScalarProperty Name="IDMovie" ColumnName="IDMovie" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

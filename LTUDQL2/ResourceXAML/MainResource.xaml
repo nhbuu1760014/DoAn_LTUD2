@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:LTUDQL2.ResourceXAML"
+                    xmlns:viewmodel="clr-namespace:LTUDQL2.ViewModels">
+        <viewmodel:RegisterViewModel x:Key="registerVM"></viewmodel:RegisterViewModel>
+        <viewmodel:LoginViewModel x:Key="loginVM"></viewmodel:LoginViewModel>
+        <viewmodel:UserProfileViewModel x:Key="profileVM"></viewmodel:UserProfileViewModel>
+        <viewmodel:ListMovieViewModel x:Key="listMovieVM"></viewmodel:ListMovieViewModel>
+</ResourceDictionary>

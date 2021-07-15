@@ -1,0 +1,34 @@
+﻿<Page x:Class="LTUDQL2.Views.NewRegister"
+      
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LTUDQL2.Views"
+      mc:Ignorable="d" 
+      
+      d:DesignHeight="550" d:DesignWidth="1500"
+      
+      Title="NewRegister">
+    <Grid Width="1500">
+        <ScrollViewer HorizontalAlignment="Left" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto" >
+            <StackPanel>
+                <StackPanel>
+                    <TextBlock Foreground="Red" FontSize="25" FontWeight="Medium" Margin="20 15 0 0">
+                        Film hiện hành trên NETFLIX
+                    </TextBlock>
+                    <WrapPanel Width="1500" x:Name="popularNetflix"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Foreground="Red" FontSize="25" FontWeight="Medium" Margin="20 15 0 0">
+                        Top Trending NETFLIX
+                    </TextBlock>
+                    <WrapPanel Width="1500" x:Name="trendingNetflix"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0a79c3759cb43f5bbd2673e6145afcb" Name="Diagram1" ZoomLevel="60">
+        <EntityTypeShape EntityType="QuanLyTrangPhimModel.Category" Width="1.5" PointX="1.5" PointY="10.875" />
+        <EntityTypeShape EntityType="QuanLyTrangPhimModel.Movy" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="QuanLyTrangPhimModel.Playlist" Width="1.5" PointX="5.25" PointY="2.625" />
+        <EntityTypeShape EntityType="QuanLyTrangPhimModel.Profile" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="QuanLyTrangPhimModel.Purchase" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="QuanLyTrangPhimModel.UserMovy" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="QuanLyTrangPhimModel.User" Width="1.5" PointX="0.75" PointY="2.375" />
+        <AssociationConnector Association="QuanLyTrangPhimModel.fk_Category_Movies" />
+        <AssociationConnector Association="QuanLyTrangPhimModel.fk_Profile_Playlist" />
+        <AssociationConnector Association="QuanLyTrangPhimModel.fk_User_Profile" />
+        <AssociationConnector Association="QuanLyTrangPhimModel.fk_User_Purchase" />
+        <AssociationConnector Association="QuanLyTrangPhimModel.Favorites" />
+        <AssociationConnector Association="QuanLyTrangPhimModel.PlaylistMovie" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
