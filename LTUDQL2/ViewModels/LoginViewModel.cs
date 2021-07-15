@@ -101,11 +101,21 @@ namespace LTUDQL2.ViewModels
                         ErrMail = "";
                         if (account.Password == Password)
                         {
-                            var wnd = Window.GetWindow(parms);
-                            Views.HomePage hp = new Views.HomePage();
-                            NameUser = account.Name;
-                            hp.Show();
-                            wnd.Close();
+                            if(account.Role == 1)
+                            {
+                                var wnd = Window.GetWindow(parms);
+                                AdminForm ad = new AdminForm();
+                                ad.Show();
+                                wnd.Close();
+                            }
+                            else
+                            {
+                                var wnd = Window.GetWindow(parms);
+                                Views.HomePage hp = new Views.HomePage();
+                                NameUser = account.Name;
+                                hp.Show();
+                                wnd.Close();
+                            }
                         }
                         else
                         {
