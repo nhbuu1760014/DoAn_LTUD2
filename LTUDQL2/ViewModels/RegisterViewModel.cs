@@ -53,7 +53,7 @@ namespace LTUDQL2.ViewModels
 
                     DataProvider.Ins.DB.SaveChanges();
                     var wnd = Window.GetWindow(parms);
-                    Views.HomePage hp = new Views.HomePage();
+                    Views.HomePage hp = new Views.HomePage(Email);
                     hp.Show();
                     wnd.Close();
                 }

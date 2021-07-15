@@ -27,27 +27,33 @@ namespace LTUDQL2.Views
             myBrush.ImageSource =
                 new BitmapImage(new Uri("pack://application:,,,/Images/bg-project.jpg", UriKind.Absolute));
             this.Background = myBrush;
-            CheckBankingUser();
         }
-        
-        void CheckBankingUser()
-        {
-            var user = DataProvider.Ins.DB.Users.Where(u=>u.Email == emailUser.Text).SingleOrDefault();
 
-            if(user.PurchaseInfo == "")
+        private string _email = "";
+        public HomePage(string email) : this()
+        {
+            _email = email;
+            CheckBankingUser(email);
+        }
+
+        void CheckBankingUser(string email)
+        {
+            var user = DataProvider.Ins.DB.Users.Where(u => u.Email == email).SingleOrDefault();
+
+            if (user.PurchaseInfo == "")
             {
                 circularBorder.Visibility = Visibility.Hidden;
                 nameUser.Visibility = Visibility.Hidden;
-                mainHomepage.Content = new Views.Banking(emailUser.Text);
+                mainHomepage.Content = new Views.Banking(email);
             }
             else
             {
                 circularBorder.Visibility = Visibility.Visible;
                 nameUser.Visibility = Visibility.Visible;
-                Views.NewRegister.emailuserAc = emailUser.Text;
-                mainHomepage.Content = new Views.NewRegister(emailUser.Text);
+                Views.NewRegister.emailuserAc = email;
+                mainHomepage.Content = new Views.NewRegister(email);
             }
-           
+
         }
 
         private void CloseApp_Click(object sender, RoutedEventArgs e)

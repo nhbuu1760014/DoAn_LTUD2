@@ -111,7 +111,7 @@ namespace LTUDQL2.ViewModels
                             else
                             {
                                 var wnd = Window.GetWindow(parms);
-                                Views.HomePage hp = new Views.HomePage();
+                                Views.HomePage hp = new Views.HomePage(account.Email);
                                 NameUser = account.Name;
                                 hp.Show();
                                 wnd.Close();
