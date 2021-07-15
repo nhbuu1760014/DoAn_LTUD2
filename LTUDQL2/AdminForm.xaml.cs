@@ -23,5 +23,11 @@ namespace LTUDQL2
         {
             InitializeComponent();
         }
+
+        private void AddMovie_Click(object sender, RoutedEventArgs e)
+        {
+            Views.AddMovie adM = new Views.AddMovie();
+            adM.ShowDialog();
+        }
     }
 }

@@ -24,7 +24,9 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Danh sách phim">
-                
+                <Grid>
+                    <Button Margin="10,10,576,349" Click="AddMovie_Click">Thêm Phim</Button>
+                </Grid>
             </TabItem>
             <TabItem Header="Thống kê">
                 <Grid Background="#FFE5E5E5"/>
